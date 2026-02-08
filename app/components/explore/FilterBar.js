@@ -147,7 +147,7 @@ export default function FilterBar({ searchQuery, setSearchQuery, filters, setFil
                                 <SelectValue placeholder="Price Range" />
                             </div>
                         </SelectTrigger>
-                        <SelectContent padding="none">
+                        <SelectContent>
                             {priceRanges.map((range) => (
                                 <SelectItem key={range.value} value={range.value}>
                                     {range.label}

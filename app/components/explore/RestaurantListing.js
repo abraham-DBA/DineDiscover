@@ -2,14 +2,16 @@
 
 import Image from "next/image";
 
-export default function RestaurantListing({ restaurants }) {
+export default function RestaurantListing({ restaurants = [] }) {
+    const restaurantList = Array.isArray(restaurants) ? restaurants : [];
+
     return (
         <aside className="w-full lg:w-[60%] flex-shrink-0 bg-white dark:bg-background-dark flex flex-col border-r border-[#f5f2f0] dark:border-white/10">
             {/* Results Header */}
             <div className="p-4 pb-2 border-b border-[#f5f2f0] dark:border-white/10">
                 <div className="flex items-center justify-between">
                     <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">
-                        {restaurants.length} restaurants found
+                        {restaurantList.length} restaurants found
                     </p>
                     <div className="flex items-center gap-1 text-sm font-bold text-primary cursor-pointer">
                         Sort: Recommended
@@ -18,9 +20,9 @@ export default function RestaurantListing({ restaurants }) {
                 </div>
             </div>
             <div className="flex-1 overflow-y-auto custom-scrollbar p-6">
-                {restaurants.length > 0 ? (
+                {restaurantList.length > 0 ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {restaurants.map((restaurant) => (
+                        {restaurantList.map((restaurant) => (
                             <div
                                 key={restaurant.id}
                                 className="group relative bg-white dark:bg-white/5 rounded-xl border border-[#f5f2f0] dark:border-white/10 overflow-hidden hover:shadow-lg transition-all cursor-pointer"
