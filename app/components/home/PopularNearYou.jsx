@@ -63,8 +63,8 @@ export default function PopularNearYou() {
                                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                             />
                             {restaurant.showFavorite && (
-                                <button className="absolute top-2 right-2 size-8 bg-white/80 dark:bg-black/40 rounded-full flex items-center justify-center backdrop-blur-sm">
-                                    <span className="material-symbols-outlined text-xl">favorite</span>
+                                <button className="absolute top-2 right-2 p-1.5 text-white hover:text-red-500 transition-colors drop-shadow-md">
+                                    <span className="material-symbols-outlined text-2xl" style={{ fontVariationSettings: "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24" }}>favorite</span>
                                 </button>
                             )}
                         </div>
