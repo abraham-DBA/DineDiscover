@@ -58,7 +58,7 @@ export default function RestaurantListing({ restaurants = [] }) {
                                         {restaurant.cuisine} • {restaurant.price}
                                     </p>
                                     <div className="flex items-center gap-3 text-xs text-gray-600 dark:text-gray-400 flex-wrap">
-                                        {restaurant.tags.map((tag, index) => (
+                                        {(restaurant.tags ?? []).map((tag, index) => (
                                             <span key={index} className="flex items-center gap-1">
                                                 <span className="material-symbols-outlined text-sm">{tag.icon}</span>
                                                 {tag.label}
