@@ -27,14 +27,20 @@ export default function RestaurantListing({ restaurants = [] }) {
                                 key={restaurant.id}
                                 className="group relative bg-white dark:bg-white/5 rounded-xl border border-[#f5f2f0] dark:border-white/10 overflow-hidden hover:shadow-lg transition-all cursor-pointer"
                             >
-                                <div className="relative h-48 w-full">
-                                    <Image
-                                        src={restaurant.image}
-                                        alt={restaurant.name}
-                                        fill
-                                        className="object-cover"
-                                        sizes="450px"
-                                    />
+                                <div className="relative h-48 w-full bg-gray-100 dark:bg-white/5">
+                                    {restaurant.image ? (
+                                        <Image
+                                            src={restaurant.image}
+                                            alt={restaurant.name}
+                                            fill
+                                            className="object-cover"
+                                            sizes="450px"
+                                        />
+                                    ) : (
+                                        <div className="absolute inset-0 flex items-center justify-center">
+                                            <span className="material-symbols-outlined text-4xl text-gray-300">restaurant</span>
+                                        </div>
+                                    )}
                                     <button className="absolute top-3 right-3 p-2 text-white hover:text-red-500 transition-colors drop-shadow-md">
                                         <span className="material-symbols-outlined text-2xl" style={{ fontVariationSettings: "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24" }}>favorite</span>
                                     </button>

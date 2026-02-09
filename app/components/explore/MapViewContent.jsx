@@ -12,8 +12,36 @@ L.Icon.Default.mergeOptions({
     shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
 });
 
+import { useEffect } from "react";
+
 function MapControls() {
     const map = useMap();
+
+    useEffect(() => {
+        const onLocationFound = (e) => {
+            console.log("Location found:", e.latlng);
+            // Optionally add a temporary marker for the user's location
+        };
+
+        const onLocationError = (e) => {
+            console.error("Location error:", e.message);
+            let msg = "Could not find your location.";
+            if (e.message.includes("denied")) {
+                msg = "Location access denied. Please enable location permissions in your browser.";
+            } else if (e.message.includes("timeout")) {
+                msg = "Location request timed out. Please try again.";
+            }
+            alert(msg);
+        };
+
+        map.on('locationfound', onLocationFound);
+        map.on('locationerror', onLocationError);
+
+        return () => {
+            map.off('locationfound', onLocationFound);
+            map.off('locationerror', onLocationError);
+        };
+    }, [map]);
 
     const handleLocate = () => {
         map.locate({ setView: true, maxZoom: 16 });
@@ -69,27 +97,29 @@ export default function MapViewContent({ restaurants = [] }) {
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                {restaurantList.map((restaurant) => (
-                    <Marker key={restaurant.id} position={restaurant.position}>
-                        <Popup>
-                            <div className="min-w-[180px]">
-                                <h3 className="font-bold text-sm text-black">{restaurant.name}</h3>
-                                <p className="text-xs text-gray-500 mt-1">
-                                    {restaurant.cuisine} • {restaurant.rating}★
-                                </p>
-                                <p className="text-xs font-bold text-[#f27f0d] mt-1">
-                                    {restaurant.price}
-                                </p>
-                                <button
-                                    onClick={() => handleViewDetails(restaurant)}
-                                    className="mt-2 w-full bg-[#f27f0d] text-white text-xs font-bold py-1.5 px-3 rounded-lg hover:bg-orange-600 transition-colors"
-                                >
-                                    View Details
-                                </button>
-                            </div>
-                        </Popup>
-                    </Marker>
-                ))}
+                {restaurantList
+                    .filter(r => Array.isArray(r.position) && r.position.length === 2)
+                    .map((restaurant) => (
+                        <Marker key={restaurant.id} position={restaurant.position}>
+                            <Popup>
+                                <div className="min-w-[180px]">
+                                    <h3 className="font-bold text-sm text-black">{restaurant.name}</h3>
+                                    <p className="text-xs text-gray-500 mt-1">
+                                        {restaurant.cuisine} • {restaurant.rating}★
+                                    </p>
+                                    <p className="text-xs font-bold text-[#f27f0d] mt-1">
+                                        {restaurant.price}
+                                    </p>
+                                    <button
+                                        onClick={() => handleViewDetails(restaurant)}
+                                        className="mt-2 w-full bg-[#f27f0d] text-white text-xs font-bold py-1.5 px-3 rounded-lg hover:bg-orange-600 transition-colors"
+                                    >
+                                        View Details
+                                    </button>
+                                </div>
+                            </Popup>
+                        </Marker>
+                    ))}
                 <MapControls />
             </MapContainer>
         </div>
