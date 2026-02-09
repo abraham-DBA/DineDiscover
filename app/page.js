@@ -1,14 +1,14 @@
 import Header from './components/Header';
-import Hero from './components/Hero';
-import CuisineFilters from './components/CuisineFilters';
-import FeaturedRestaurants from './components/FeaturedRestaurants';
-import PopularNearYou from './components/PopularNearYou';
-import PopularDestinations from './components/PopularDestinations';
-import NewArrivals from './components/NewArrivals';
-import HowItWorks from './components/HowItWorks';
-import Testimonials from './components/Testimonials';
-import CallToAction from './components/CallToAction';
 import Footer from './components/Footer';
+import Hero from './components/home/Hero';
+import CuisineFilters from './components/home/CuisineFilters';
+import FeaturedRestaurants from './components/home/FeaturedRestaurants';
+import PopularNearYou from './components/home/PopularNearYou';
+import PopularDestinations from './components/home/PopularDestinations';
+import NewArrivals from './components/home/NewArrivals';
+import HowItWorks from './components/home/HowItWorks';
+import Testimonials from './components/home/Testimonials';
+import CallToAction from './components/home/CallToAction';
 
 export default function Home() {
   return (
